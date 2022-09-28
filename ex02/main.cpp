@@ -1,9 +1,9 @@
 #include "Fixed.hpp"
 
 int main( void ) {
-    Fixed b( 10 );
-    Fixed d( b );
-    if (d == b)
-        std::cout << "yarraaa";
+    Fixed a(5.25f);
+    Fixed b(5.6f);
+    int x = (a + b).toInt();
+    std::cout<< x << std::endl;
     return 0;
 }

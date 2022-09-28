@@ -9,6 +9,16 @@ public:
     Fixed ( const int raw_integer );
     Fixed ( const float raw_float );
     Fixed &operator=(const Fixed &obj);
+    bool    operator==(const Fixed &obj) const;
+    bool    operator>(const Fixed &obj) const;
+    bool    operator<(const Fixed &obj) const;
+    bool    operator>=(const Fixed &obj) const;
+    bool    operator<=(const Fixed &obj) const;
+    bool    operator!=(const Fixed &obj) const;
+    Fixed   operator+(const Fixed &obj) const;
+    Fixed    operator-(const Fixed &obj) const;
+    Fixed    operator*(const Fixed &obj) const;
+    Fixed    operator/(const Fixed &obj) const;
     ~Fixed();
     float   toFloat ( void ) const;
     int     toInt ( void ) const;

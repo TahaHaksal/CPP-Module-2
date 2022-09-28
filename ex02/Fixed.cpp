@@ -16,6 +16,7 @@ Fixed::Fixed(const Fixed &obj){
     _number_val = obj.getRawBits();
 }
 
+
 Fixed &Fixed::operator = (const Fixed &obj){
     std::cout<<"Copy assignment operator called"<<std::endl;
     _number_val = obj.getRawBits();
@@ -52,44 +53,52 @@ int     Fixed::toInt ( void ) const{
     return (_number_val / (1 << _fractional_bitz));
 }
 
-// bool    operator>(Fixed &obj, Fixed &obj2){
-//     if (obj2.toFloat() < obj.toFloat())
-//         return (true);
-//     else
-//         return (false);
-// }
-
-// bool    operator<(Fixed &obj, Fixed &obj2){
-//     if (obj2.toFloat() > obj.toFloat())
-//         return (true);
-//     else
-//         return (false);
-// }
-
-// bool    operator>=(Fixed &obj, Fixed &obj2){
-//     if (obj2.toFloat() <= obj.toFloat())
-//         return (true);
-//     else
-//         return (false);
-// }
-
-// bool    operator<=(Fixed &obj, Fixed &obj2){
-//     if (obj2.toFloat() >= obj.toFloat())
-//         return (true);
-//     else
-//         return (false);
-// }
-
-bool    Fixed::operator==(const Fixed &obj, const Fixed &obj2){
-    if (obj2.toFloat() == obj.toFloat())
-        return (true);
-    else
-        return (false);
+bool Fixed::operator==(const Fixed &obj) const
+{
+	return (this->toFloat() == obj.toFloat());
 }
 
-// bool    operator!=(Fixed &obj, Fixed &obj2){
-//     if (obj2.toFloat() != obj.toFloat())
-//         return (true);
-//     else
-//         return (false);
-// }
+bool Fixed::operator!=(const Fixed &obj) const
+{
+	return (this->toFloat() != obj.toFloat());
+}
+
+bool Fixed::operator<(const Fixed &obj) const
+{
+	return (this->toFloat() < obj.toFloat());
+}
+
+bool Fixed::operator>(const Fixed &obj) const
+{
+	return (this->toFloat() > obj.toFloat());
+}
+
+bool Fixed::operator>=(const Fixed &obj) const
+{
+	return (this->toFloat() >= obj.toFloat());
+}
+
+bool Fixed::operator<=(const Fixed &obj) const
+{
+	return (this->toFloat() <= obj.toFloat());
+}
+
+Fixed Fixed::operator+(const Fixed &obj) const
+{
+	return (Fixed (this->toFloat() + obj.toFloat()));
+}
+
+Fixed Fixed::operator-(const Fixed &obj) const
+{
+	return (Fixed (this->toFloat() - obj.toFloat()));
+}
+
+Fixed Fixed::operator*(const Fixed &obj) const
+{
+	return (Fixed (this->toFloat() * obj.toFloat()));
+}
+
+Fixed Fixed::operator/(const Fixed &obj) const
+{
+	return (Fixed (this->toFloat() / obj.toFloat()));
+}
