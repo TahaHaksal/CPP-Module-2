@@ -7,24 +7,20 @@ std::ostream& operator << (std::ostream &os, Fixed const& obj){
 }
 
 Fixed::Fixed(){
-    std::cout<<"Default constructor called"<<std::endl;
     _number_val = 0;
 }
 
 Fixed::Fixed(const Fixed &obj){
-    std::cout<<"Copy constructor called"<<std::endl;
     _number_val = obj.getRawBits();
 }
 
 
 Fixed &Fixed::operator = (const Fixed &obj){
-    std::cout<<"Copy assignment operator called"<<std::endl;
     _number_val = obj.getRawBits();
     return *this;
 }
 
 Fixed::~Fixed(){
-    std::cout << "Destructor called" << std::endl;
 }
 
 int     Fixed::getRawBits ( void ) const{
@@ -37,12 +33,10 @@ void    Fixed::setRawBits ( int const raw ){
 
 Fixed::Fixed ( const int raw_integer ){
     _number_val = raw_integer * (1 << _fractional_bitz);
-    std::cout << "Int constructor called" << std::endl;
 }
 
 Fixed::Fixed ( const float raw_float ){
-    _number_val = round((raw_float * (1 << _fractional_bitz)));
-    std::cout << "Float constructor called" << std::endl;
+    _number_val = (int)std::roundf((raw_float * (1 << _fractional_bitz)));
 }
 
 float   Fixed::toFloat ( void ) const{
@@ -85,20 +79,88 @@ bool Fixed::operator<=(const Fixed &obj) const
 
 Fixed Fixed::operator+(const Fixed &obj) const
 {
-	return (Fixed (this->toFloat() + obj.toFloat()));
+    Fixed   temp;
+
+    temp.setRawBits(getRawBits() + obj.getRawBits());
+	return (temp);
 }
 
 Fixed Fixed::operator-(const Fixed &obj) const
 {
-	return (Fixed (this->toFloat() - obj.toFloat()));
+	Fixed   temp;
+
+    temp.setRawBits(getRawBits() + obj.getRawBits());
+	return (temp);
 }
 
 Fixed Fixed::operator*(const Fixed &obj) const
 {
-	return (Fixed (this->toFloat() * obj.toFloat()));
+	Fixed   temp;
+    int     temp2;
+
+    temp2 = (getRawBits() * obj.getRawBits());
+    temp2 /= (1 << (_fractional_bitz));
+    temp.setRawBits(temp2);
+	return (temp);
 }
 
 Fixed Fixed::operator/(const Fixed &obj) const
 {
-	return (Fixed (this->toFloat() / obj.toFloat()));
+	Fixed   temp;
+    int     temp2;
+
+    temp2 = (getRawBits() / obj.getRawBits());
+    temp2 *= (1 << (_fractional_bitz));
+    temp.setRawBits(temp2);
+	return (temp);
+}
+
+Fixed Fixed::operator++(int)
+{
+    Fixed temp;
+
+    temp.setRawBits(getRawBits() + 1);
+    setRawBits(temp.getRawBits());
+    return (temp);
+}
+
+Fixed Fixed::operator++()
+{
+    Fixed temp;
+
+    temp.setRawBits(getRawBits() + 1);
+    setRawBits(temp.getRawBits());
+    return (temp);
+}
+
+Fixed&  Fixed::min(Fixed &num1, Fixed &num2)
+{
+    if (num1.getRawBits() > num2.getRawBits())
+        return num2;
+    else
+        return num1;
+}
+
+Fixed&  Fixed::min(const Fixed &num1, const Fixed &num2)
+{
+    if (num1.getRawBits() > num2.getRawBits())
+        return ((Fixed &)num2);
+    else
+        return ((Fixed &)num1);
+}
+
+Fixed&  Fixed::max(Fixed &num1, Fixed &num2)
+{
+    if (num1.getRawBits() > num2.getRawBits())
+        return num1;
+    else
+        return num2;
+}
+
+Fixed&  Fixed::max( Fixed const &num1,  Fixed const &num2)
+{
+    if (num1.getRawBits() > num2.getRawBits())
+        return ((Fixed &)num1);
+    else
+        return ((Fixed &)num2);
 }

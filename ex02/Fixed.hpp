@@ -1,5 +1,6 @@
 #pragma once 
 #include <iostream>
+#include <cmath>
 
 class Fixed
 {
@@ -8,7 +9,7 @@ public:
     Fixed(const Fixed &obj);
     Fixed ( const int raw_integer );
     Fixed ( const float raw_float );
-    Fixed &operator=(const Fixed &obj);
+    Fixed   &operator=(const Fixed &obj);
     bool    operator==(const Fixed &obj) const;
     bool    operator>(const Fixed &obj) const;
     bool    operator<(const Fixed &obj) const;
@@ -16,10 +17,16 @@ public:
     bool    operator<=(const Fixed &obj) const;
     bool    operator!=(const Fixed &obj) const;
     Fixed   operator+(const Fixed &obj) const;
-    Fixed    operator-(const Fixed &obj) const;
-    Fixed    operator*(const Fixed &obj) const;
-    Fixed    operator/(const Fixed &obj) const;
+    Fixed   operator-(const Fixed &obj) const;
+    Fixed   operator*(const Fixed &obj) const;
+    Fixed   operator/(const Fixed &obj) const;
+    Fixed   operator++(int);
+    Fixed   operator++();
     ~Fixed();
+    static Fixed&  min(Fixed &num1, Fixed &num2);
+    static Fixed&  min(const Fixed &num1, const Fixed &num2);
+    static Fixed&  max(Fixed &num1, Fixed &num2);
+    static Fixed&  max(const Fixed &num1, const Fixed &num2);
     float   toFloat ( void ) const;
     int     toInt ( void ) const;
     int     getRawBits ( void ) const;
