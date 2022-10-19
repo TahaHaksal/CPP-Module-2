@@ -1,9 +1,11 @@
 #include "Point.hpp"
 
 int main( void ) {
-    Point   x;
-    Point   y(2.5f, 2.5f);
+    Point   a(1, 1);
+    Point   b(2, 5);
+    Point   c(5, 4);
 
-    std::cout<<x.getXVal()<<std::endl<<x.getYVal()<<std::endl;
-    std::cout<<y.getXVal()<<std::endl<<y.getYVal()<<std::endl;
+    Point   point(4, 2);
+
+    std::cout<<bsp(a,b,c,point)<<std::endl;
 }

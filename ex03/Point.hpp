@@ -19,10 +19,12 @@ class Point
 		Point & operator=(const Point &assign);
 
 		//Getters and Setters
-		Fixed	getXVal();
-		Fixed	getYVal();
+		Fixed	getXVal() const;
+		Fixed	getYVal() const;
 		
 	private:
 		Fixed const _x;
 		Fixed const _y;
 };
+
+bool    bsp(Point a, Point b, Point c, Point const point);

@@ -89,7 +89,7 @@ Fixed Fixed::operator-(const Fixed &obj) const
 {
 	Fixed   temp;
 
-    temp.setRawBits(getRawBits() + obj.getRawBits());
+    temp.setRawBits(getRawBits() - obj.getRawBits());
 	return (temp);
 }
 
@@ -98,7 +98,7 @@ Fixed Fixed::operator*(const Fixed &obj) const
 	Fixed   temp;
     int     temp2;
 
-    temp2 = (getRawBits() * obj.getRawBits());
+    temp2 = ((int32_t)getRawBits() * (int32_t)obj.getRawBits());
     temp2 /= (1 << (_fractional_bitz));
     temp.setRawBits(temp2);
 	return (temp);
@@ -106,12 +106,8 @@ Fixed Fixed::operator*(const Fixed &obj) const
 
 Fixed Fixed::operator/(const Fixed &obj) const
 {
-	Fixed   temp;
-    int     temp2;
-
-    temp2 = (getRawBits() / obj.getRawBits());
-    temp2 *= (1 << (_fractional_bitz));
-    temp.setRawBits(temp2);
+    Fixed   temp (toFloat() / obj.toFloat());
+    
 	return (temp);
 }
 
